@@ -1,0 +1,31 @@
+#parent gitlab-ci
+
+stages:
+  - triggers
+  - parent-clean
+  - triggers-all
+
+trigger_a:
+  stage: triggers
+  trigger:
+    include: module-a/.gitlab-ci.yml
+  only:
+    changes:
+    - "module-a/**/*"
+ 
+trigger_b:
+  stage: triggers
+  trigger:
+    include: module-b/.gitlab-ci.yml
+  only:
+    changes:
+    - "module-b/**/*"
+
+trigger_parent:
+  image: maven:latest
+  stage: parent-clean
+  script:
+    mvn clean package
+  only:
+    changes:
+    - "**"

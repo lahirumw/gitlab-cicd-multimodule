@@ -1,0 +1,22 @@
+#child gitlab-ci
+
+
+stages:
+  - clean
+  - package
+
+image: maven:latest
+
+build-java:
+  stage: clean
+  script:
+    - echo "MODULE B clean"
+    - cd module-b/
+    - mvn clean
+
+build-package:
+  stage: package
+  script:
+    - echo "MODULE B package"
+    - cd module-b/
+    - mvn package
